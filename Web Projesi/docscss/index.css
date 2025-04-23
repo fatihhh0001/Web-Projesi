@@ -1,0 +1,29 @@
+body {
+  background-color: aqua;
+  background-image: url(../projeresimleri/SakaryaUni.png);
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.custom-index-nav {
+  background-color: #6a98ed;
+}
+
+.custom-div2 {
+  color: rgb(214, 16, 16);
+}
+
+.custom-div3 {
+  color: rgb(214, 16, 16);
+}
+
+.custom-index-nav2 {
+  background-color: #6a98ed;
+}
+
+.custom-ad {
+  color: black;
+  text-align: center;
+}
