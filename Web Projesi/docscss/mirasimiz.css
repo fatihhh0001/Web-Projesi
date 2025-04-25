@@ -1,0 +1,76 @@
+.custom-mir-nav {
+  background-color: #6a98ed;
+}
+
+body {
+  background-image: url(../projeresimleri/backlogo.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/*
+
+<div class="d-flex flex-row flex-wrap justify-content-start align-items-start">
+      <div class="col-8 col-md-7 col-lg-6">
+        <div id="carouselExample" class="carousel slide mx-2">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img
+                src="projeresimleri/sakaryaspor.jpg"
+                class="d-block w-100"
+                alt="..."
+              />      <div class="carousel-caption d-none d-md-block">
+                <h5>Sakaryaspor Logosu</h5>
+                <p></p>
+              </div>
+        
+              
+            </div>
+            <div class="carousel-item">
+              <img
+                src="projeresimleri/stadsakarya.jpg"
+                class="d-block w-100"
+                alt="..."
+              />      <div class="carousel-caption d-none d-md-block">
+                <h5>Yeni Sakarya Atatürk Stadyumu</h5>
+                <p>Açılış	8 Ekim 2017 (7 yıl önce)</p>
+              </div>
+        
+              
+            </div>
+            <div class="carousel-item">
+              <img
+                src="projeresimleri/seyirci.jpg"
+                class="d-block w-100"
+                alt="..."
+              />      <div class="carousel-caption d-none d-md-block">
+                <h5>Maçtan Kareler</h5>
+                <p></p>
+              </div>
+        
+              
+              
+            </div>
+          </div>
+*/
+
+/*
+<div class="card text-bg-dark mb-3">
+          <div class="card-header"></div>
+          <div class="card-body">
+            <h5 class="card-title">Dark card title</h5>
+            <p class="card-text">
+              Kulüp, 1988 yılında Türkiye Kupası’nı kazanarak adını Türk futbol
+              tarihine altın harflerle yazdırmıştır. Zaman zaman Süper Lig’de
+              boy gösteren Sakaryaspor, inişli çıkışlı dönemler yaşasa da, her
+              zaman dimdik ayakta kalmayı başarmıştır. Her düşüşten sonra daha
+              güçlü kalkmayı bilen bu takım, tıpkı şehri gibi dirençlidir.
+            </p>
+            <img src="projeresimleri/stadd.jpg" class="img-fluid" alt="" />
+          </div>
+        </div>
+
+
+*/
