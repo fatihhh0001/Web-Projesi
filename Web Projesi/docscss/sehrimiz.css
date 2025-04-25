@@ -1,0 +1,11 @@
+.custom-seh-nav {
+  background-color: #6a98ed;
+}
+
+body {
+  background-image: url(../projeresimleri/kentpark.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
