@@ -1,0 +1,11 @@
+.custom-hakkinda-nav {
+  background-color: #6a98ed;
+}
+
+body {
+  background-image: url(../projeresimleri/eregli.jpeg);
+  background-position: center;
+  background-size: auto;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
