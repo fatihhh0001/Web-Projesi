@@ -1,0 +1,19 @@
+.custom-ozg {
+  background-color: #6a98ed;
+}
+
+body {
+  background-image: url(../projeresimleri/education2.png);
+  background-attachment: fixed; /* sabitlensin*/
+  background-position: bottom; /* resim biraz aşağıdan gözüksün*/
+  background-repeat: no-repeat; /* resim tekrar etmesin*/
+  background-size: cover; /* auto kendi büyüklüğü , cover kaplamak resmi*/
+}
+
+.bg-special {
+  background-color: rgb(142, 212, 11);
+}
+
+.bg-special2 {
+  background-color: bisque;
+}
