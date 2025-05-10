@@ -1,0 +1,19 @@
+.custom-login {
+  background-color: #6a98ed;
+}
+
+body {
+  background-image: url(../projeresimleri/nature.jpeg);
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.form-label {
+  font-weight: 600; /* Daha kalın font */
+  color: #333; /* Koyu renk */
+  margin-bottom: 0.5rem; /* Label-input arası mesafe */
+}
+
+.custom-log {
+}
