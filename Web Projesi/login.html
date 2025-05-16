@@ -57,6 +57,11 @@
                 Daha Fazla
               </a>
               <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="ilgialan.html"
+                    >İlgi Alanlarım</a
+                  >
+                </li>
                 <li><a class="dropdown-item" href="login.html">Login</a></li>
                 <li>
                   <a class="dropdown-item" href="iletisim.html">İletişim</a>
@@ -71,25 +76,22 @@
     <br /><br /><br />
 
     <div class="d-flex justify-content-center align-items-center">
-      <div class="col-6 col-md-6">
+      <div class="col-6 col-md-6" id="aa">
         <form class="custom-log" action="dogrula.php" method="post">
           <div class="row justify-content-center">
             <div class="col-md-3 mb-4">
-              <label for="ad" class="form-label bg-dark text-white"
-                >Adınızı Giriniz :</label
-              >
+              <label for="ad" class="form-label text-white">Ad :</label>
               <input
                 type="text "
                 required
                 class="form-control w-75"
                 name="ad"
+                placeholder="İsim:"
               />
             </div>
 
             <div class="col-md-3 mb-4">
-              <label for="soyad" class="form-label bg-dark text-white"
-                >Soy Adınızı Giriniz :</label
-              >
+              <label for="soyad" class="form-label text-white">SoyAd :</label>
               <input
                 type="text "
                 required
@@ -101,7 +103,7 @@
 
           <div class="row justify-content-center">
             <div class="col-md-4 mb-4">
-              <label for="password" class="form-label bg-dark text-white"
+              <label for="password" class="form-label text-white"
                 >Ogr No Giriniz :</label
               >
               <input
@@ -115,7 +117,7 @@
 
           <div class="row justify-content-center">
             <div class="col-md-4 mb-4">
-              <label for="password" class="form-label bg-dark text-white"
+              <label for="password" class="form-label text-white"
                 >Mail Adresinizi giriniz:</label
               >
               <input
@@ -132,7 +134,7 @@
               <input
                 type="submit"
                 value="Gir"
-                class="form-control bg-dark text-white"
+                class="form-control bg-success text-white"
               />
             </div>
           </div>
@@ -140,7 +142,7 @@
       </div>
     </div>
 
-    <div class="d-flex justify-content-center align-items-center">
+    <div class="d-flex mt-1 justify-content-center align-items-center">
       <div class="row justify-content-center align-items-center">
         <p style="color: aliceblue">
           lütfen doğru sitede olduğunuzdan emin olun.
