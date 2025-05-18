@@ -1,9 +1,486 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>İletişim</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT"
+      crossorigin="anonymous"
+    />
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <link rel="stylesheet" href="docscss/iletisim.css" />
+
+    <style>
+      /* Arka plan rengi */
+      body {
+        background-color: #dedbd5; /* Açık gri bir renk */
+      }
+    </style>
   </head>
-  <body></body>
+  <body>
+    <nav class="navbar navbar-expand-lg fixed-top custom-iletisim">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">Ana Sayfa</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="hakkinda.html"
+                >Hakkında</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="ozgecmis.html">Özgeçmiş</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="sehrimiz.html">Şehrimiz</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="mirasimiz.html">Mirasımız</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Daha Fazla
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="ilgialan.html"
+                    >İlgi Alanlarım</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="iletisim.html">İletişim</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="login.html">Login</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <br /><br /><br /><br />
+
+    <div class="container">
+           
+      <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+          <div id="root" class="container mt-5"></div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/babel">
+      const { useState } = React;
+
+      function SimpleForm() {
+        const [name, setName] = useState("");
+        const [email, setEmail] = useState("");
+        const [phone, setPhone] = useState("");
+        const [date, setDate] = useState("");
+        const [time, setTime] = useState("");
+        const [textarea, setTextarea] = useState("");
+        const [gender, setGender] = useState(""); // Cinsiyet radio state'i
+        // Hobiler artık çoklu seçim, bu yüzden state array olacak:
+        const [hobbies, setHobbies] = useState([]); // Hobiler checkbox state'i (boş array ile başlar)
+        const [city, setCity] = useState(""); // Şehir select state'i
+
+        const [password, setPassword] = useState("");
+        const [file, setFile] = useState(null);
+
+        const [errors, setErrors] = useState({});
+
+        // Checkbox değişikliklerini yöneten fonksiyon
+        const handleCheckboxChange = (event) => {
+          const { value, checked } = event.target; // Checkbox'ın değerini ve işaretli olup olmadığını al
+
+          if (checked) {
+            // Eğer işaretlendiyse, değeri hobiler array'ine ekle
+            setHobbies([...hobbies, value]); // Immutable güncelleme (yeni array oluştur)
+          } else {
+            // Eğer işareti kaldırıldıysa, değeri hobiler array'inden çıkar
+            setHobbies(hobbies.filter((hobby) => hobby !== value)); // Immutable güncelleme (yeni array oluştur)
+          }
+        };
+
+        const handleSubmit = (event) => {
+          event.preventDefault();
+
+          const newErrors = {};
+
+          if (!name.trim()) newErrors.name = "Ad boş olamaz.";
+          if (!email.trim()) {
+            newErrors.email = "Mail boş olamaz.";
+          } else if (!/\S+@\S+\.\S+/.test(email)) {
+            newErrors.email = "Geçerli mail girin.";
+          }
+          if (!phone.trim()) {
+            newErrors.phone = "Telefon boş olamaz.";
+          } else if (!/^\d+$/.test(phone.trim())) {
+            newErrors.phone = "Sadece rakam girin.";
+          }
+          if (!date) newErrors.date = "Tarih seçin.";
+          if (!time) newErrors.time = "Saat seçin.";
+          if (!textarea.trim()) newErrors.textarea = "Bu alan boş olamaz.";
+
+          if (!gender) newErrors.gender = "Cinsiyet seçin.";
+          // Hobiler doğrulaması: Array boşsa hata ver
+          if (hobbies.length === 0) newErrors.hobbies = "En az bir hobi seçin.";
+
+          if (!city) newErrors.city = "Şehir seçin.";
+
+          if (!password) newErrors.password = "Şifre boş olamaz.";
+          if (!file) newErrors.file = "Dosya seçin.";
+
+          setErrors(newErrors);
+
+          if (Object.keys(newErrors).length === 0) {
+            alert("Form başarıyla doğrulandı! (Veriler gönderilmiyor)");
+          }
+        };
+
+        return (
+          <div>
+            <h2>Ödev Formu</h2>
+            <form onSubmit={handleSubmit}>
+              {/* Ad Alanı */}
+              <div className="mb-3">
+                <label htmlFor="name" className="form-label">
+                  Ad:
+                </label>
+                <input
+                  type="text"
+                  className={`form-control ${errors.name ? "is-invalid" : ""}`}
+                  id="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+                {errors.name && (
+                  <div className="invalid-feedback">{errors.name}</div>
+                )}
+              </div>
+
+              {/* Mail Alanı */}
+              <div className="mb-3">
+                <label htmlFor="email" className="form-label">
+                  Mail:
+                </label>
+                <input
+                  type="email"
+                  className={`form-control ${errors.email ? "is-invalid" : ""}`}
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                {errors.email && (
+                  <div className="invalid-feedback">{errors.email}</div>
+                )}
+              </div>
+
+              {/* Telefon Alanı */}
+              <div className="mb-3">
+                <label htmlFor="phone" className="form-label">
+                  Telefon:
+                </label>
+                <input
+                  type="tel"
+                  className={`form-control ${errors.phone ? "is-invalid" : ""}`}
+                  id="phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+                {errors.phone && (
+                  <div className="invalid-feedback">{errors.phone}</div>
+                )}
+              </div>
+
+              {/* Tarih Alanı */}
+              <div className="mb-3">
+                <label htmlFor="date" className="form-label">
+                  Tarih:
+                </label>
+                <input
+                  type="date"
+                  className={`form-control ${errors.date ? "is-invalid" : ""}`}
+                  id="date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                />
+                {errors.date && (
+                  <div className="invalid-feedback">{errors.date}</div>
+                )}
+              </div>
+
+              {/* Zaman Alanı */}
+              <div className="mb-3">
+                <label htmlFor="time" className="form-label">
+                  Saat:
+                </label>
+                <input
+                  type="time"
+                  className={`form-control ${errors.time ? "is-invalid" : ""}`}
+                  id="time"
+                  value={time}
+                  onChange={(e) => setTime(e.target.value)}
+                />
+                {errors.time && (
+                  <div className="invalid-feedback">{errors.time}</div>
+                )}
+              </div>
+
+              {/* Textarea Alanı */}
+              <div className="mb-3">
+                <label htmlFor="textarea" className="form-label">
+                  Ek Bilgi:
+                </label>
+                <textarea
+                  className={`form-control ${
+                    errors.textarea ? "is-invalid" : ""
+                  }`}
+                  id="textarea"
+                  rows="3"
+                  value={textarea}
+                  onChange={(e) => setTextarea(e.target.value)}
+                ></textarea>
+                {errors.textarea && (
+                  <div className="invalid-feedback">{errors.textarea}</div>
+                )}
+              </div>
+
+              {/* Cinsiyet Radyo Butonları */}
+              <div className="mb-3">
+                <label className="form-label">Cinsiyet:</label>
+                <div className={`${errors.gender ? "is-invalid-group" : ""}`}>
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      name="genderOptions"
+                      id="genderErkek"
+                      value="erkek"
+                      checked={gender === "erkek"}
+                      onChange={(e) => setGender(e.target.value)}
+                    />
+                    <label className="form-check-label" htmlFor="genderErkek">
+                      Erkek
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      name="genderOptions"
+                      id="genderKadın"
+                      value="kadın"
+                      checked={gender === "kadın"}
+                      onChange={(e) => setGender(e.target.value)}
+                    />
+                    <label className="form-check-label" htmlFor="genderKadın">
+                      Kadın
+                    </label>
+                  </div>
+                </div>
+                {errors.gender && (
+                  <div
+                    className="text-danger radio-error-margin"
+                    style={{ fontSize: "0.875em" }}
+                  >
+                    {errors.gender}
+                  </div>
+                )}
+              </div>
+
+              {/* Hobiler Checkboxları (Güncellendi) */}
+              <div className="mb-3">
+                <label className="form-label">Hobiler:</label>{" "}
+                {/* Checkboxlar için htmlFor gerekmez, labellar form-check-label sınıfıyla inputa bağlanır */}
+                {/* Hata varsa custom is-invalid-group class'ını ekle */}
+                <div className={`${errors.hobbies ? "is-invalid-group" : ""}`}>
+                  {" "}
+                  {/* State adı 'hobbies' olarak güncellendi */}
+                  {/* Resim Checkbox */}
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id="hobbyResim"
+                      value="resim"
+                      checked={hobbies.includes("resim")} // Array'de var mı diye kontrol et
+                      onChange={handleCheckboxChange} // Yeni checkbox handler'ı
+                    />
+                    <label className="form-check-label" htmlFor="hobbyResim">
+                      Resim
+                    </label>
+                  </div>
+                  {/* Müzik Checkbox */}
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id="hobbyMuzik"
+                      value="muzik"
+                      checked={hobbies.includes("muzik")} // Array'de var mı diye kontrol et
+                      onChange={handleCheckboxChange} // Yeni checkbox handler'ı
+                    />
+                    <label className="form-check-label" htmlFor="hobbyMuzik">
+                      Müzik
+                    </label>
+                  </div>
+                  {/* Futbol Checkbox */}
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id="hobbyFutbol"
+                      value="futbol"
+                      checked={hobbies.includes("futbol")} // Array'de var mı diye kontrol et
+                      onChange={handleCheckboxChange} // Yeni checkbox handler'ı
+                    />
+                    <label className="form-check-label" htmlFor="hobbyFutbol">
+                      Futbol
+                    </label>
+                  </div>
+                  {/* Basketbol Checkbox */}
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id="hobbyBasketbol"
+                      value="basketbol"
+                      checked={hobbies.includes("basketbol")} // Array'de var mı diye kontrol et
+                      onChange={handleCheckboxChange} // Yeni checkbox handler'ı
+                    />
+                    <label
+                      className="form-check-label"
+                      htmlFor="hobbyBasketbol"
+                    >
+                      Basketbol
+                    </label>
+                  </div>
+                </div>
+                {/* Hata varsa mesajı göster - State adı 'hobbies' için */}
+                {/* Radio ile aynı hata mesajı stilini kullanabiliriz */}
+                {errors.hobbies && (
+                  <div
+                    className="text-danger radio-error-margin"
+                    style={{ fontSize: "0.875em" }}
+                  >
+                    {errors.hobbies}
+                  </div>
+                )}
+              </div>
+
+              {/* Yaşadığınız Şehir Select */}
+              <div className="mb-3">
+                <label htmlFor="city" className="form-label">
+                  Yaşadığınız Şehir:
+                </label>
+                <select
+                  className={`form-select ${errors.city ? "is-invalid" : ""}`}
+                  id="city"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                >
+                  <option value="">Lütfen Seçiniz...</option>
+                  <option value="istanbul">İstanbul</option>
+                  <option value="ankara">Ankara</option>
+                  <option value="izmir">İzmir</option>
+                </select>
+                {errors.city && (
+                  <div className="invalid-feedback">{errors.city}</div>
+                )}
+              </div>
+
+              {/* Şifre Alanı */}
+              <div className="mb-3">
+                <label htmlFor="password" className="form-label">
+                  Şifre:
+                </label>
+                <input
+                  type="password"
+                  className={`form-control ${
+                    errors.password ? "is-invalid" : ""
+                  }`}
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                {errors.password && (
+                  <div className="invalid-feedback">{errors.password}</div>
+                )}
+              </div>
+
+              {/* Dosya Seç Alanı */}
+              <div className="mb-3">
+                <label htmlFor="file" className="form-label">
+                  Dosya Yükle:
+                </label>
+                <input
+                  type="file"
+                  className={`form-control ${errors.file ? "is-invalid" : ""}`}
+                  id="file"
+                  onChange={(e) => setFile(e.target.files[0])}
+                />
+                {errors.file && (
+                  <div className="invalid-feedback">{errors.file}</div>
+                )}
+              </div>
+
+              {/* Gönder Butonu */}
+              <button type="submit" className="btn btn-primary">
+                Gönder
+              </button>
+            </form>
+          </div>
+        );
+      }
+
+      ReactDOM.render(<SimpleForm />, document.getElementById("root"));
+    </script>
+
+    <br /><br />
+
+    <nav class="navbar custom-iletisim">
+      <div class="container-fluid">
+        <p>
+          © 2025 Tüm hakları saklıdır. Bu siteyi ben yaptım, benimdir ve benim
+          iznim olmadan kopyalanamaz, çoğaltılamaz veya dağıtılamaz. İletişim
+          için <a href="iletisim.html">tıklayınız</a>
+        </p>
+      </div>
+    </nav>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
