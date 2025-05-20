@@ -3,28 +3,20 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>İletişim</title>
+    <title>İletişim Formu</title>
+
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT"
       crossorigin="anonymous"
     />
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
+    <!-- Vue.js 3.5.14 (CDN) -->
     <link rel="stylesheet" href="docscss/iletisim.css" />
-
-    <style>
-      /* Arka plan rengi */
-      body {
-        background-color: #dedbd5; /* Açık gri bir renk */
-      }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.5.14/dist/vue.global.prod.js"></script>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg fixed-top custom-iletisim">
+    <nav class="navbar sticky-top navbar-expand-lg custom-iletisim">
       <div class="container-fluid">
         <a class="navbar-brand" href="index.html">Ana Sayfa</a>
         <button
@@ -76,9 +68,7 @@
                 <li>
                   <a class="dropdown-item" href="iletisim.html">İletişim</a>
                 </li>
-                <li>
-                  <a class="dropdown-item" href="login.html">Login</a>
-                </li>
+                <li><a class="dropdown-item" href="login.html">Login</a></li>
               </ul>
             </li>
           </ul>
@@ -86,401 +76,321 @@
       </div>
     </nav>
 
-    <br /><br /><br /><br />
+    <!---->
 
-    <div class="container">
-           
-      <div class="row justify-content-center">
-        <div class="col-lg-8 col-md-10">
-          <div id="root" class="container mt-5"></div>
-        </div>
+    <div class="container mt-5">
+      <h1 class="text-center mb-4">İletişim Formu</h1>
+      <div id="app">
+        <form @submit.prevent="submitForm" class="p-4 border rounded">
+          <!-- Ad -->
+          <div class="mb-3">
+            <label for="name" class="form-label">Ad</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              v-model="form.name"
+            />
+            <div v-if="errors.name" class="text-danger">{{ errors.name }}</div>
+          </div>
+          <!-- E-posta -->
+          <div class="mb-3">
+            <label for="email" class="form-label">E-posta</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              v-model="form.email"
+            />
+            <div v-if="errors.email" class="text-danger">
+              {{ errors.email }}
+            </div>
+          </div>
+          <!-- Telefon -->
+          <div class="mb-3">
+            <label for="phone" class="form-label">Telefon</label>
+            <input
+              type="tel"
+              class="form-control"
+              id="phone"
+              v-model="form.phone"
+            />
+            <div v-if="errors.phone" class="text-danger">
+              {{ errors.phone }}
+            </div>
+          </div>
+          <!-- Tarih -->
+          <div class="mb-3">
+            <label for="date" class="form-label">Tarih</label>
+            <input
+              type="date"
+              class="form-control"
+              id="date"
+              v-model="form.date"
+            />
+            <div v-if="errors.date" class="text-danger">{{ errors.date }}</div>
+          </div>
+          <!-- Saat -->
+          <div class="mb-3">
+            <label for="time" class="form-label">Saat</label>
+            <input
+              type="time"
+              class="form-control"
+              id="time"
+              v-model="form.time"
+            />
+            <div v-if="errors.time" class="text-danger">{{ errors.time }}</div>
+          </div>
+          <!-- Mesaj -->
+          <div class="mb-3">
+            <label for="message" class="form-label">Mesaj</label>
+            <textarea
+              class="form-control"
+              id="message"
+              v-model="form.message"
+              rows="4"
+            ></textarea>
+            <div v-if="errors.message" class="text-danger">
+              {{ errors.message }}
+            </div>
+          </div>
+          <!-- Cinsiyet -->
+          <div class="mb-3">
+            <label class="form-label">Cinsiyet</label>
+            <div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="male"
+                  value="Erkek"
+                  v-model="form.gender"
+                />
+                <label class="form-check-label" for="male">Erkek</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="female"
+                  value="Kadın"
+                  v-model="form.gender"
+                />
+                <label class="form-check-label" for="female">Kadın</label>
+              </div>
+            </div>
+            <div v-if="errors.gender" class="text-danger">
+              {{ errors.gender }}
+            </div>
+          </div>
+          <!-- Hobiler -->
+          <div class="mb-3">
+            <label class="form-label">Hobiler</label>
+            <div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="football"
+                  value="Futbol"
+                  v-model="form.hobbies"
+                />
+                <label class="form-check-label" for="football">Futbol</label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="basketball"
+                  value="Basketbol"
+                  v-model="form.hobbies"
+                />
+                <label class="form-check-label" for="basketball"
+                  >Basketbol</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="volleyball"
+                  value="Voleybol"
+                  v-model="form.hobbies"
+                />
+                <label class="form-check-label" for="volleyball"
+                  >Voleybol</label
+                >
+              </div>
+            </div>
+            <div v-if="errors.hobbies" class="text-danger">
+              {{ errors.hobbies }}
+            </div>
+          </div>
+          <!-- Şifre -->
+          <div class="mb-3">
+            <label for="password" class="form-label">Şifre</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              v-model="form.password"
+            />
+            <div v-if="errors.password" class="text-danger">
+              {{ errors.password }}
+            </div>
+          </div>
+          <!-- Butonlar -->
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Gönder</button>
+            <button type="button" class="btn btn-secondary" @click="resetForm">
+              Temizle
+            </button>
+          </div>
+        </form>
       </div>
     </div>
-
-    <script type="text/babel">
-      const { useState } = React;
-
-      function SimpleForm() {
-        const [name, setName] = useState("");
-        const [email, setEmail] = useState("");
-        const [phone, setPhone] = useState("");
-        const [date, setDate] = useState("");
-        const [time, setTime] = useState("");
-        const [textarea, setTextarea] = useState("");
-        const [gender, setGender] = useState(""); // Cinsiyet radio state'i
-        // Hobiler artık çoklu seçim, bu yüzden state array olacak:
-        const [hobbies, setHobbies] = useState([]); // Hobiler checkbox state'i (boş array ile başlar)
-        const [city, setCity] = useState(""); // Şehir select state'i
-
-        const [password, setPassword] = useState("");
-        const [file, setFile] = useState(null);
-
-        const [errors, setErrors] = useState({});
-
-        // Checkbox değişikliklerini yöneten fonksiyon
-        const handleCheckboxChange = (event) => {
-          const { value, checked } = event.target; // Checkbox'ın değerini ve işaretli olup olmadığını al
-
-          if (checked) {
-            // Eğer işaretlendiyse, değeri hobiler array'ine ekle
-            setHobbies([...hobbies, value]); // Immutable güncelleme (yeni array oluştur)
-          } else {
-            // Eğer işareti kaldırıldıysa, değeri hobiler array'inden çıkar
-            setHobbies(hobbies.filter((hobby) => hobby !== value)); // Immutable güncelleme (yeni array oluştur)
-          }
-        };
-
-        const handleSubmit = (event) => {
-          event.preventDefault();
-
-          const newErrors = {};
-
-          if (!name.trim()) newErrors.name = "Ad boş olamaz.";
-          if (!email.trim()) {
-            newErrors.email = "Mail boş olamaz.";
-          } else if (!/\S+@\S+\.\S+/.test(email)) {
-            newErrors.email = "Geçerli mail girin.";
-          }
-          if (!phone.trim()) {
-            newErrors.phone = "Telefon boş olamaz.";
-          } else if (!/^\d+$/.test(phone.trim())) {
-            newErrors.phone = "Sadece rakam girin.";
-          }
-          if (!date) newErrors.date = "Tarih seçin.";
-          if (!time) newErrors.time = "Saat seçin.";
-          if (!textarea.trim()) newErrors.textarea = "Bu alan boş olamaz.";
-
-          if (!gender) newErrors.gender = "Cinsiyet seçin.";
-          // Hobiler doğrulaması: Array boşsa hata ver
-          if (hobbies.length === 0) newErrors.hobbies = "En az bir hobi seçin.";
-
-          if (!city) newErrors.city = "Şehir seçin.";
-
-          if (!password) newErrors.password = "Şifre boş olamaz.";
-          if (!file) newErrors.file = "Dosya seçin.";
-
-          setErrors(newErrors);
-
-          if (Object.keys(newErrors).length === 0) {
-            alert("Form başarıyla doğrulandı! (Veriler gönderilmiyor)");
-          }
-        };
-
-        return (
-          <div>
-            <h2>Ödev Formu</h2>
-            <form onSubmit={handleSubmit}>
-              {/* Ad Alanı */}
-              <div className="mb-3">
-                <label htmlFor="name" className="form-label">
-                  Ad:
-                </label>
-                <input
-                  type="text"
-                  className={`form-control ${errors.name ? "is-invalid" : ""}`}
-                  id="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-                {errors.name && (
-                  <div className="invalid-feedback">{errors.name}</div>
-                )}
-              </div>
-
-              {/* Mail Alanı */}
-              <div className="mb-3">
-                <label htmlFor="email" className="form-label">
-                  Mail:
-                </label>
-                <input
-                  type="email"
-                  className={`form-control ${errors.email ? "is-invalid" : ""}`}
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                {errors.email && (
-                  <div className="invalid-feedback">{errors.email}</div>
-                )}
-              </div>
-
-              {/* Telefon Alanı */}
-              <div className="mb-3">
-                <label htmlFor="phone" className="form-label">
-                  Telefon:
-                </label>
-                <input
-                  type="tel"
-                  className={`form-control ${errors.phone ? "is-invalid" : ""}`}
-                  id="phone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-                {errors.phone && (
-                  <div className="invalid-feedback">{errors.phone}</div>
-                )}
-              </div>
-
-              {/* Tarih Alanı */}
-              <div className="mb-3">
-                <label htmlFor="date" className="form-label">
-                  Tarih:
-                </label>
-                <input
-                  type="date"
-                  className={`form-control ${errors.date ? "is-invalid" : ""}`}
-                  id="date"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                />
-                {errors.date && (
-                  <div className="invalid-feedback">{errors.date}</div>
-                )}
-              </div>
-
-              {/* Zaman Alanı */}
-              <div className="mb-3">
-                <label htmlFor="time" className="form-label">
-                  Saat:
-                </label>
-                <input
-                  type="time"
-                  className={`form-control ${errors.time ? "is-invalid" : ""}`}
-                  id="time"
-                  value={time}
-                  onChange={(e) => setTime(e.target.value)}
-                />
-                {errors.time && (
-                  <div className="invalid-feedback">{errors.time}</div>
-                )}
-              </div>
-
-              {/* Textarea Alanı */}
-              <div className="mb-3">
-                <label htmlFor="textarea" className="form-label">
-                  Ek Bilgi:
-                </label>
-                <textarea
-                  className={`form-control ${
-                    errors.textarea ? "is-invalid" : ""
-                  }`}
-                  id="textarea"
-                  rows="3"
-                  value={textarea}
-                  onChange={(e) => setTextarea(e.target.value)}
-                ></textarea>
-                {errors.textarea && (
-                  <div className="invalid-feedback">{errors.textarea}</div>
-                )}
-              </div>
-
-              {/* Cinsiyet Radyo Butonları */}
-              <div className="mb-3">
-                <label className="form-label">Cinsiyet:</label>
-                <div className={`${errors.gender ? "is-invalid-group" : ""}`}>
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      name="genderOptions"
-                      id="genderErkek"
-                      value="erkek"
-                      checked={gender === "erkek"}
-                      onChange={(e) => setGender(e.target.value)}
-                    />
-                    <label className="form-check-label" htmlFor="genderErkek">
-                      Erkek
-                    </label>
-                  </div>
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      name="genderOptions"
-                      id="genderKadın"
-                      value="kadın"
-                      checked={gender === "kadın"}
-                      onChange={(e) => setGender(e.target.value)}
-                    />
-                    <label className="form-check-label" htmlFor="genderKadın">
-                      Kadın
-                    </label>
-                  </div>
-                </div>
-                {errors.gender && (
-                  <div
-                    className="text-danger radio-error-margin"
-                    style={{ fontSize: "0.875em" }}
-                  >
-                    {errors.gender}
-                  </div>
-                )}
-              </div>
-
-              {/* Hobiler Checkboxları (Güncellendi) */}
-              <div className="mb-3">
-                <label className="form-label">Hobiler:</label>{" "}
-                {/* Checkboxlar için htmlFor gerekmez, labellar form-check-label sınıfıyla inputa bağlanır */}
-                {/* Hata varsa custom is-invalid-group class'ını ekle */}
-                <div className={`${errors.hobbies ? "is-invalid-group" : ""}`}>
-                  {" "}
-                  {/* State adı 'hobbies' olarak güncellendi */}
-                  {/* Resim Checkbox */}
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="hobbyResim"
-                      value="resim"
-                      checked={hobbies.includes("resim")} // Array'de var mı diye kontrol et
-                      onChange={handleCheckboxChange} // Yeni checkbox handler'ı
-                    />
-                    <label className="form-check-label" htmlFor="hobbyResim">
-                      Resim
-                    </label>
-                  </div>
-                  {/* Müzik Checkbox */}
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="hobbyMuzik"
-                      value="muzik"
-                      checked={hobbies.includes("muzik")} // Array'de var mı diye kontrol et
-                      onChange={handleCheckboxChange} // Yeni checkbox handler'ı
-                    />
-                    <label className="form-check-label" htmlFor="hobbyMuzik">
-                      Müzik
-                    </label>
-                  </div>
-                  {/* Futbol Checkbox */}
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="hobbyFutbol"
-                      value="futbol"
-                      checked={hobbies.includes("futbol")} // Array'de var mı diye kontrol et
-                      onChange={handleCheckboxChange} // Yeni checkbox handler'ı
-                    />
-                    <label className="form-check-label" htmlFor="hobbyFutbol">
-                      Futbol
-                    </label>
-                  </div>
-                  {/* Basketbol Checkbox */}
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="hobbyBasketbol"
-                      value="basketbol"
-                      checked={hobbies.includes("basketbol")} // Array'de var mı diye kontrol et
-                      onChange={handleCheckboxChange} // Yeni checkbox handler'ı
-                    />
-                    <label
-                      className="form-check-label"
-                      htmlFor="hobbyBasketbol"
-                    >
-                      Basketbol
-                    </label>
-                  </div>
-                </div>
-                {/* Hata varsa mesajı göster - State adı 'hobbies' için */}
-                {/* Radio ile aynı hata mesajı stilini kullanabiliriz */}
-                {errors.hobbies && (
-                  <div
-                    className="text-danger radio-error-margin"
-                    style={{ fontSize: "0.875em" }}
-                  >
-                    {errors.hobbies}
-                  </div>
-                )}
-              </div>
-
-              {/* Yaşadığınız Şehir Select */}
-              <div className="mb-3">
-                <label htmlFor="city" className="form-label">
-                  Yaşadığınız Şehir:
-                </label>
-                <select
-                  className={`form-select ${errors.city ? "is-invalid" : ""}`}
-                  id="city"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                >
-                  <option value="">Lütfen Seçiniz...</option>
-                  <option value="istanbul">İstanbul</option>
-                  <option value="ankara">Ankara</option>
-                  <option value="izmir">İzmir</option>
-                </select>
-                {errors.city && (
-                  <div className="invalid-feedback">{errors.city}</div>
-                )}
-              </div>
-
-              {/* Şifre Alanı */}
-              <div className="mb-3">
-                <label htmlFor="password" className="form-label">
-                  Şifre:
-                </label>
-                <input
-                  type="password"
-                  className={`form-control ${
-                    errors.password ? "is-invalid" : ""
-                  }`}
-                  id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                {errors.password && (
-                  <div className="invalid-feedback">{errors.password}</div>
-                )}
-              </div>
-
-              {/* Dosya Seç Alanı */}
-              <div className="mb-3">
-                <label htmlFor="file" className="form-label">
-                  Dosya Yükle:
-                </label>
-                <input
-                  type="file"
-                  className={`form-control ${errors.file ? "is-invalid" : ""}`}
-                  id="file"
-                  onChange={(e) => setFile(e.target.files[0])}
-                />
-                {errors.file && (
-                  <div className="invalid-feedback">{errors.file}</div>
-                )}
-              </div>
-
-              {/* Gönder Butonu */}
-              <button type="submit" className="btn btn-primary">
-                Gönder
-              </button>
-            </form>
-          </div>
-        );
-      }
-
-      ReactDOM.render(<SimpleForm />, document.getElementById("root"));
-    </script>
-
-    <br /><br />
-
-    <nav class="navbar custom-iletisim">
-      <div class="container-fluid">
-        <p>
-          © 2025 Tüm hakları saklıdır. Bu siteyi ben yaptım, benimdir ve benim
-          iznim olmadan kopyalanamaz, çoğaltılamaz veya dağıtılamaz. İletişim
-          için <a href="iletisim.html">tıklayınız</a>
-        </p>
-      </div>
-    </nav>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
       crossorigin="anonymous"
     ></script>
+    <!-- Vue.js Uygulaması -->
+    <script>
+      const { createApp } = Vue;
+
+      createApp({
+        data() {
+          return {
+            form: {
+              name: "",
+              email: "",
+              phone: "",
+              date: "",
+              time: "",
+              message: "",
+              gender: "",
+              hobbies: [],
+              password: "",
+            },
+            errors: {
+              name: "",
+              email: "",
+              phone: "",
+              date: "",
+              time: "",
+              message: "",
+              gender: "",
+              hobbies: "",
+              password: "",
+            },
+          };
+        },
+        methods: {
+          validateForm() {
+            let isValid = true;
+            this.errors = {
+              name: "",
+              email: "",
+              phone: "",
+              date: "",
+              time: "",
+              message: "",
+              gender: "",
+              hobbies: "",
+              password: "",
+            };
+
+            if (!this.form.name.trim()) {
+              this.errors.name = "Ad alanı zorunludur.";
+              isValid = false;
+            }
+            if (!this.form.email.trim()) {
+              this.errors.email = "E-posta alanı zorunludur.";
+              isValid = false;
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.form.email)) {
+              this.errors.email = "Geçerli bir e-posta adresi giriniz.";
+              isValid = false;
+            }
+            if (!this.form.phone.trim()) {
+              this.errors.phone = "Telefon alanı zorunludur.";
+              isValid = false;
+            } else if (!/^\d{10,}$/.test(this.form.phone.replace(/\D/g, ""))) {
+              this.errors.phone = "Telefon numarası en az 10 rakam olmalıdır.";
+              isValid = false;
+            }
+            if (!this.form.date) {
+              this.errors.date = "Tarih alanı zorunludur.";
+              isValid = false;
+            }
+            if (!this.form.time) {
+              this.errors.time = "Saat alanı zorunludur.";
+              isValid = false;
+            }
+            if (!this.form.message.trim()) {
+              this.errors.message = "Mesaj alanı zorunludur.";
+              isValid = false;
+            }
+            if (!this.form.gender) {
+              this.errors.gender = "Cinsiyet seçimi zorunludur.";
+              isValid = false;
+            }
+            if (this.form.hobbies.length === 0) {
+              this.errors.hobbies = "En az bir hobi seçmelisiniz.";
+              isValid = false;
+            }
+            if (!this.form.password) {
+              this.errors.password = "Şifre alanı zorunludur.";
+              isValid = false;
+            } else if (this.form.password.length < 6) {
+              this.errors.password = "Şifre en az 6 karakter olmalıdır.";
+              isValid = false;
+            }
+
+            return isValid;
+          },
+          submitForm() {
+            if (this.validateForm()) {
+              const params = new URLSearchParams({
+                name: this.form.name,
+                email: this.form.email,
+                phone: this.form.phone,
+                date: this.form.date,
+                time: this.form.time,
+                message: this.form.message,
+                gender: this.form.gender,
+                hobbies: this.form.hobbies.join(","),
+                password: this.form.password,
+              }).toString();
+              window.location.href = `result.html?${params}`;
+            }
+          },
+          resetForm() {
+            this.form = {
+              name: "",
+              email: "",
+              phone: "",
+              date: "",
+              time: "",
+              message: "",
+              gender: "",
+              hobbies: [],
+              password: "",
+            };
+            this.errors = {
+              name: "",
+              email: "",
+              phone: "",
+              date: "",
+              time: "",
+              message: "",
+              gender: "",
+              hobbies: "",
+              password: "",
+            };
+          },
+        },
+      }).mount("#app");
+    </script>
   </body>
 </html>

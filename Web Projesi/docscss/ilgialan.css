@@ -9,3 +9,13 @@ body {
 .custom-nav-ilgi {
   background-color: #6a98ed;
 }
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* bu ms süreler*/
+}
+
+.card:hover {
+  transform: scale(1.05); /* Hafif büyütme  %5*/
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Gölgeyle öne çıkarma */
+  z-index: 2; /* Üstte kalsın */
+}
